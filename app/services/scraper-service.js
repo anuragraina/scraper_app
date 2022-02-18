@@ -1,11 +1,9 @@
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
 
-async function start() {
+export async function scrapeWebsite(website) {
 	const browser = await puppeteer.launch({ devtools: true });
 	const page = await browser.newPage();
-	await page.goto(
-		'https://www.computerworld.com/article/3313417/tech-event-calendar-shows-conferences-and-it-expos-updated.html'
-	);
+	await page.goto(website);
 
 	const data = await page.evaluate(() => {
 		const eventsData = [];
@@ -30,9 +28,7 @@ async function start() {
 		return eventsData;
 	});
 
-	console.log(data);
-
 	await browser.close();
-}
 
-start();
+	return data;
+}
