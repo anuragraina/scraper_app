@@ -31,6 +31,7 @@ export async function scrapeWebsite(website) {
 
 		await browser.close();
 
+		//return events list after adding website to each event
 		return eventsList.map(event => ({
 			website,
 			...event,

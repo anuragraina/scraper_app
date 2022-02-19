@@ -8,6 +8,7 @@ const eventSchema = new mongoose.Schema({
 	eventName: {
 		type: String,
 		required: 'Event name is required',
+		unique: true,
 	},
 	startDate: {
 		type: Date,
