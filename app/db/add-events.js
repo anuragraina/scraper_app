@@ -12,15 +12,19 @@ const addEvents = async () => {
 			'https://www.computerworld.com/article/3313417/tech-event-calendar-shows-conferences-and-it-expos-updated.html'
 		);
 
-		Event.insertMany(sanitizeEventsData(eventsList), function (err, docs) {
-			if (err) {
-				console.log('Encountered error while inserting events to db!');
-				console.error(err);
-			} else {
-				console.log('Events inserted to db successfully.');
-				console.log(docs);
-			}
-		});
+		if (eventsList.length > 0) {
+			Event.insertMany(sanitizeEventsData(eventsList), function (err, docs) {
+				if (err) {
+					console.log('Encountered error while inserting events to db!');
+					console.error(err);
+				} else {
+					console.log('Events inserted to db successfully.');
+					console.log(docs);
+				}
+			});
+		} else {
+			console.log('No data received!!!');
+		}
 	} catch (e) {
 		console.error(e);
 	}
