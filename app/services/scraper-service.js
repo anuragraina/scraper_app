@@ -6,7 +6,7 @@ export async function scrapeWebsite(website) {
 		const page = await browser.newPage();
 		await page.goto(website);
 
-		const data = await page.evaluate(() => {
+		const eventsList = await page.evaluate(() => {
 			const eventsData = [];
 
 			const eventsNodeList = document.querySelectorAll('tr.odd, tr.even');
@@ -31,7 +31,7 @@ export async function scrapeWebsite(website) {
 
 		await browser.close();
 
-		return data.map(event => ({
+		return eventsList.map(event => ({
 			website,
 			...event,
 		}));
