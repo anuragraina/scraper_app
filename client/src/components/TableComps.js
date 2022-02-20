@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import TableHead from '@mui/material/TableHead';
 import TableSortLabel from '@mui/material/TableSortLabel';
@@ -10,6 +11,8 @@ import { visuallyHidden } from '@mui/utils';
 import Box from '@mui/material/Box';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+
+import FilterDialog from './FilterDialog';
 
 const headCells = [
 	{
@@ -72,6 +75,12 @@ EnhancedTableHead.propTypes = {
 };
 
 export const EnhancedTableToolbar = () => {
+	const [open, setOpen] = useState(false);
+
+	const openFilterDialog = () => {
+		setOpen(true);
+	};
+
 	return (
 		<Toolbar
 			sx={{
@@ -84,10 +93,11 @@ export const EnhancedTableToolbar = () => {
 			</Typography>
 
 			<Tooltip title='Filter list'>
-				<IconButton>
+				<IconButton onClick={openFilterDialog}>
 					<FilterListIcon />
 				</IconButton>
 			</Tooltip>
+			<FilterDialog open={open} setOpen={setOpen} />
 		</Toolbar>
 	);
 };
