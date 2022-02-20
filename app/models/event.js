@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const eventSchema = new mongoose.Schema({
-	website: {
+	websiteName: {
 		type: String,
 		required: 'Website is required',
 	},
