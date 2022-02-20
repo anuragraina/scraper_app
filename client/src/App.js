@@ -2,7 +2,12 @@ import EventsTable from './components/EventsTable';
 
 function App() {
 	return (
-		<div className='App'>
+		<div
+			style={{
+				display: 'flex',
+				justifyContent: 'center',
+			}}
+		>
 			<EventsTable />
 		</div>
 	);

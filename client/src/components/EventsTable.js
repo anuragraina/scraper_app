@@ -34,8 +34,6 @@ export default function EnhancedTable() {
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [events, setEvents] = useState([]);
 
-	console.log(events);
-
 	useEffect(() => {
 		let mounted = true;
 
@@ -68,7 +66,7 @@ export default function EnhancedTable() {
 	const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - events.length) : 0;
 
 	return (
-		<Box sx={{ width: '100%' }}>
+		<Box sx={{ width: '80%', mt: 5 }}>
 			<Paper sx={{ width: '100%', mb: 2 }}>
 				<EnhancedTableToolbar />
 				<TableContainer>
@@ -114,7 +112,7 @@ export default function EnhancedTable() {
 					</Table>
 				</TableContainer>
 				<TablePagination
-					rowsPerPageOptions={[5, 10, 25]}
+					rowsPerPageOptions={[5, 10, 15, 20]}
 					component='div'
 					count={events.length}
 					rowsPerPage={rowsPerPage}
