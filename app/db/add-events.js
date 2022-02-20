@@ -3,14 +3,13 @@ import mongoose from 'mongoose';
 import { scrapeWebsite } from '../services/scraper-service.js';
 import { sanitizeEventsData } from '../utils/helpers.js';
 import Event from '../models/event.js';
+import { scrapeConfig } from '../utils/scrapeConfig.js';
 
 const addEvents = async () => {
 	try {
 		await mongoose.connect('mongodb://localhost:27017/test');
 
-		const eventsList = await scrapeWebsite(
-			'https://www.computerworld.com/article/3313417/tech-event-calendar-shows-conferences-and-it-expos-updated.html'
-		);
+		const eventsList = await scrapeWebsite(scrapeConfig[0]);
 
 		if (eventsList.length > 0) {
 			Event.insertMany(sanitizeEventsData(eventsList), function (err, docs) {
@@ -18,8 +17,7 @@ const addEvents = async () => {
 					console.log('Encountered error while inserting events to db!');
 					console.error(err);
 				} else {
-					console.log('Events inserted to db successfully.');
-					console.log(docs);
+					console.log(`${docs.length} events inserted to db successfully.`);
 				}
 			});
 		} else {
