@@ -1,44 +1,55 @@
 import puppeteer from 'puppeteer';
+import jsdom from 'jsdom';
 
-export async function scrapeWebsite(website) {
-	const browser = await puppeteer.launch({ devtools: true });
+const { JSDOM } = jsdom;
+
+export async function scrapeWebsite(scrapeConfig) {
+	const { website, eventsContainerSelectors, extractEvent } = scrapeConfig;
+
+	const browser = await puppeteer.launch();
 	try {
+		const eventsList = [];
 		const page = await browser.newPage();
 		await page.goto(website);
 
-		const eventsList = await page.evaluate(() => {
-			const eventsData = [];
+		const eventsDomOuterHtml = await page.evaluate(() => {
+			return document.body.outerHTML;
+		});
 
-			const eventsNodeList = document.querySelectorAll('tr.odd, tr.even');
+		const eventsDom = new JSDOM(eventsDomOuterHtml);
 
-			eventsNodeList.forEach(eventNode => {
-				const eventName = eventNode.children.item(0).textContent;
-				const startDate = eventNode.children.item(2).textContent;
-				const endDate = eventNode.children.item(3).textContent;
-				const location = eventNode.children.item(4).textContent;
+		const eventsNodeList = eventsDom.window.document.querySelectorAll(eventsContainerSelectors);
 
-				eventsData.push({
-					eventName,
-					startDate,
-					endDate,
-					location,
-				});
-				console.log(eventNode.children.item(3).textContent);
-			});
-
-			return eventsData;
+		eventsNodeList.forEach(eventNode => {
+			eventsList.push(extractEvent(eventNode, website));
 		});
 
 		await browser.close();
 
-		//return events list after adding website to each event
-		return eventsList.map(event => ({
-			website,
-			...event,
-		}));
+		console.log(eventsList);
 	} catch (e) {
 		console.log(e);
 		await browser.close();
-		return null;
+		return [];
 	}
 }
+
+scrapeWebsite({
+	website:
+		'https://www.computerworld.com/article/3313417/tech-event-calendar-shows-conferences-and-it-expos-updated.html',
+	eventsContainerSelectors: 'tr.odd, tr.even',
+	extractEvent: (eventNode, website) => {
+		const eventName = eventNode.children.item(0).textContent;
+		const startDate = eventNode.children.item(2).textContent;
+		const endDate = eventNode.children.item(3).textContent;
+		const location = eventNode.children.item(4).textContent;
+
+		return {
+			website,
+			eventName,
+			startDate,
+			endDate,
+			location,
+		};
+	},
+});
