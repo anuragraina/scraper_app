@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -29,19 +28,19 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-	createData('Cupcake', 305, 3.7, 67, 4.3),
-	createData('Donut', 452, 25.0, 51, 4.9),
-	createData('Eclair', 262, 16.0, 24, 6.0),
-	createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-	createData('Gingerbread', 356, 16.0, 49, 3.9),
-	createData('Honeycomb', 408, 3.2, 87, 6.5),
-	createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-	createData('Jelly Bean', 375, 0.0, 94, 0.0),
-	createData('KitKat', 518, 26.0, 65, 7.0),
-	createData('Lollipop', 392, 0.2, 98, 0.0),
-	createData('Marshmallow', 318, 0, 81, 2.0),
-	createData('Nougat', 360, 19.0, 9, 37.0),
-	createData('Oreo', 437, 18.0, 63, 4.0),
+	createData('Cupcake', 305, 3.7, 67),
+	createData('Donut', 452, 25.0, 51),
+	createData('Eclair', 262, 16.0, 24),
+	createData('Frozen yoghurt', 159, 6.0, 24),
+	createData('Gingerbread', 356, 16.0, 49),
+	createData('Honeycomb', 408, 3.2, 87),
+	createData('Ice cream sandwich', 237, 9.0, 37),
+	createData('Jelly Bean', 375, 0.0, 94),
+	createData('KitKat', 518, 26.0, 65),
+	createData('Lollipop', 392, 0.2, 98),
+	createData('Marshmallow', 318, 0, 81),
+	createData('Nougat', 360, 19.0, 9),
+	createData('Oreo', 437, 18.0, 63),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -62,34 +61,20 @@ function getComparator(order, orderBy) {
 
 const headCells = [
 	{
-		id: 'name',
-		numeric: false,
-		disablePadding: true,
-		label: 'Dessert (100g serving)',
+		id: 'eventName',
+		label: 'Event Name',
 	},
 	{
-		id: 'calories',
-		numeric: true,
-		disablePadding: false,
-		label: 'Calories',
+		id: 'date',
+		label: 'Event Date',
 	},
 	{
-		id: 'fat',
-		numeric: true,
-		disablePadding: false,
-		label: 'Fat (g)',
+		id: 'location',
+		label: 'Location',
 	},
 	{
-		id: 'carbs',
-		numeric: true,
-		disablePadding: false,
-		label: 'Carbs (g)',
-	},
-	{
-		id: 'protein',
-		numeric: true,
-		disablePadding: false,
-		label: 'Protein (g)',
+		id: 'websiteName',
+		label: 'Website Name',
 	},
 ];
 
@@ -105,8 +90,8 @@ function EnhancedTableHead(props) {
 				{headCells.map(headCell => (
 					<TableCell
 						key={headCell.id}
-						align={headCell.numeric ? 'right' : 'left'}
-						padding={headCell.disablePadding ? 'none' : 'normal'}
+						align='left'
+						padding='normal'
 						sortDirection={orderBy === headCell.id ? order : false}
 					>
 						<TableSortLabel
@@ -129,26 +114,17 @@ function EnhancedTableHead(props) {
 }
 
 EnhancedTableHead.propTypes = {
-	numSelected: PropTypes.number.isRequired,
 	onRequestSort: PropTypes.func.isRequired,
-	onSelectAllClick: PropTypes.func.isRequired,
 	order: PropTypes.oneOf(['asc', 'desc']).isRequired,
 	orderBy: PropTypes.string.isRequired,
-	rowCount: PropTypes.number.isRequired,
 };
 
-const EnhancedTableToolbar = props => {
-	const { numSelected } = props;
-
+const EnhancedTableToolbar = () => {
 	return (
 		<Toolbar
 			sx={{
 				pl: { sm: 2 },
 				pr: { xs: 1, sm: 1 },
-				...(numSelected > 0 && {
-					bgcolor: theme =>
-						alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-				}),
 			}}
 		>
 			<Typography sx={{ flex: '1 1 100%' }} variant='h6' id='tableTitle' component='div'>
@@ -209,31 +185,15 @@ export default function EnhancedTable() {
 								.slice()
 								.sort(getComparator(order, orderBy))
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map((row, index) => {
-									const labelId = `enhanced-table-checkbox-${index}`;
-
-									return (
-										<TableRow
-											hover
-											role='checkbox'
-											tabIndex={-1}
-											key={row.name}
-										>
-											<TableCell
-												component='th'
-												id={labelId}
-												scope='row'
-												padding='none'
-											>
-												{row.name}
-											</TableCell>
-											<TableCell align='right'>{row.calories}</TableCell>
-											<TableCell align='right'>{row.fat}</TableCell>
-											<TableCell align='right'>{row.carbs}</TableCell>
-											<TableCell align='right'>{row.protein}</TableCell>
-										</TableRow>
-									);
-								})}
+								.map(row => (
+									<TableRow hover key={row.name}>
+										<TableCell>{row.name}</TableCell>
+										<TableCell>{row.calories}</TableCell>
+										<TableCell>{row.fat}</TableCell>
+										<TableCell>{row.carbs}</TableCell>
+										<TableCell>{row.protein}</TableCell>
+									</TableRow>
+								))}
 							{emptyRows > 0 && (
 								<TableRow
 									style={{
