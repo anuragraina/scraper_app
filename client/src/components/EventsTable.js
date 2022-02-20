@@ -86,12 +86,18 @@ export default function EnhancedTable() {
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 								.map(event => {
 									const date = new Date(event.date);
+									const websiteName =
+										event.websiteName.length > 30
+											? `${event.websiteName.slice(0, 30)}...`
+											: event.websiteName;
+									const location =
+										event.location.length > 0 ? event.location : '-';
 									return (
 										<TableRow hover key={event.eventName}>
 											<TableCell>{event.eventName}</TableCell>
 											<TableCell>{date.toDateString()}</TableCell>
-											<TableCell>{event.location}</TableCell>
-											<TableCell>{event.websiteName}</TableCell>
+											<TableCell>{location}</TableCell>
+											<TableCell>{websiteName}</TableCell>
 										</TableRow>
 									);
 								})}
