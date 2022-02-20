@@ -84,14 +84,17 @@ export default function EnhancedTable() {
 								.slice()
 								.sort(getComparator(order, orderBy))
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map(event => (
-									<TableRow hover key={event.eventName}>
-										<TableCell>{event.eventName}</TableCell>
-										<TableCell>{event.date}</TableCell>
-										<TableCell>{event.location}</TableCell>
-										<TableCell>{event.websiteName}</TableCell>
-									</TableRow>
-								))}
+								.map(event => {
+									const date = new Date(event.date);
+									return (
+										<TableRow hover key={event.eventName}>
+											<TableCell>{event.eventName}</TableCell>
+											<TableCell>{date.toDateString()}</TableCell>
+											<TableCell>{event.location}</TableCell>
+											<TableCell>{event.websiteName}</TableCell>
+										</TableRow>
+									);
+								})}
 							{emptyRows > 0 && (
 								<TableRow
 									style={{

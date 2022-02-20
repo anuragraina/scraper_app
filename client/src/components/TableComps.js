@@ -91,7 +91,3 @@ export const EnhancedTableToolbar = () => {
 		</Toolbar>
 	);
 };
-
-EnhancedTableToolbar.propTypes = {
-	numSelected: PropTypes.number.isRequired,
-};
