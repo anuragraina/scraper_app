@@ -4,7 +4,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Grid from '@mui/material/Grid';
+
+import FilterTabs from './FilterTabs';
 
 export default function FilterDialog({ open, setOpen }) {
 	const handleClose = () => {
@@ -21,14 +22,7 @@ export default function FilterDialog({ open, setOpen }) {
 			>
 				<DialogTitle id='filter-dialog-title'>Filter List</DialogTitle>
 				<DialogContent>
-					<Grid container spacing={2}>
-						<Grid item xs={8}>
-							xs=8
-						</Grid>
-						<Grid item xs={4}>
-							xs=4
-						</Grid>
-					</Grid>
+					<FilterTabs />
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose}>Cancel</Button>

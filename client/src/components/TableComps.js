@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
-import FilterDialog from './FilterDialog';
+import FilterDialog from './Filters/FilterDialog';
 
 const headCells = [
 	{
