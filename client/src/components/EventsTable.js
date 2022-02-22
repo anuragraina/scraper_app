@@ -38,19 +38,39 @@ export default function EventsTable() {
 	const [events, setEvents] = useState([]);
 	const [filters, setFilters] = useState(getFiltersConfig());
 	const [filterString, setFilterString] = useState('');
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		let mounted = true;
 
 		const fetchevents = async () => {
-			const response = await axios('/api/events');
-			mounted && setEvents(response.data);
+			try {
+				setLoading(true);
+
+				const request =
+					filterString.length > 0
+						? '/api/events?'.concat(filterString.slice(1, filterString.length))
+						: '/api/events';
+
+				console.log(request);
+
+				const response = await axios(request);
+				if (mounted) {
+					setEvents(response.data);
+					setLoading(false);
+				}
+			} catch (err) {
+				console.error(err);
+				setError(true);
+				setLoading(false);
+			}
 		};
 
 		fetchevents();
 
 		return () => (mounted = false);
-	}, []);
+	}, [filterString]);
 
 	const handleRequestSort = (event, property) => {
 		const isAsc = orderBy === property && order === 'asc';
