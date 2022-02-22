@@ -11,7 +11,7 @@ export const sanitizeEventsData = eventsList => {
 };
 
 export const queryDb = async queryParams => {
-	const { locationType, date } = queryParams;
+	const { locationType, date, websiteName } = queryParams;
 
 	const queryObject = {};
 
@@ -33,6 +33,17 @@ export const queryDb = async queryParams => {
 		queryObject.location = '';
 	} else if (locationType === 'Offline') {
 		queryObject.location = { $ne: '' };
+	}
+
+	if (
+		websiteName ===
+		'Tech event calendar 2022: Upcoming US shows, conferences, and IT expos | Computerworld'
+	) {
+		queryObject.websiteName = {
+			$eq: 'Tech event calendar 2022: Upcoming US shows, conferences, and IT expos | Computerworld',
+		};
+	} else if (websiteName === 'All Tech Events - Techmeme') {
+		queryObject.websiteName = { $eq: 'All Tech Events - Techmeme' };
 	}
 
 	console.log(queryObject);
