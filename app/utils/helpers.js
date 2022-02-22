@@ -13,11 +13,15 @@ export const sanitizeEventsData = eventsList => {
 export const queryDb = async queryParams => {
 	const { locationType } = queryParams;
 
+	const queryObject = {};
+
 	if (locationType === 'Virtual') {
-		return Event.where('location').equals('');
+		queryObject.location = '';
 	} else if (locationType === 'Offline') {
-		return Event.where('location').ne('');
-	} else {
-		return Event.find({});
+		queryObject.location = { $ne: '' };
 	}
+
+	console.log(queryObject);
+
+	return Event.find(queryObject);
 };

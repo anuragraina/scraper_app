@@ -1,4 +1,3 @@
-import Event from '../models/event.js';
 import { queryDb } from '../utils/helpers.js';
 
 export const getEvents = async queryParams => {
