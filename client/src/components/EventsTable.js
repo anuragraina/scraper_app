@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 import { EnhancedTableHead, EnhancedTableToolbar } from './TableComps';
 import { getFiltersConfig } from '../utils/helpers';
@@ -96,46 +97,53 @@ export default function EventsTable() {
 				<Paper sx={{ width: '100%', mb: 2 }}>
 					<EnhancedTableToolbar />
 					<TableContainer>
-						<Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle'>
-							<EnhancedTableHead
-								order={order}
-								orderBy={orderBy}
-								onRequestSort={handleRequestSort}
-								rowCount={events.length}
-							/>
-							<TableBody>
-								{events
-									.slice()
-									.sort(getComparator(order, orderBy))
-									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-									.map(event => {
-										const date = new Date(event.date);
-										const websiteName =
-											event.websiteName.length > 30
-												? `${event.websiteName.slice(0, 30)}...`
-												: event.websiteName;
-										const location =
-											event.location.length > 0 ? event.location : '-';
-										return (
-											<TableRow hover key={event.eventName}>
-												<TableCell>{event.eventName}</TableCell>
-												<TableCell>{date.toDateString()}</TableCell>
-												<TableCell>{location}</TableCell>
-												<TableCell>{websiteName}</TableCell>
-											</TableRow>
-										);
-									})}
-								{emptyRows > 0 && (
-									<TableRow
-										style={{
-											height: 53 * emptyRows,
-										}}
-									>
-										<TableCell colSpan={6} />
-									</TableRow>
-								)}
-							</TableBody>
-						</Table>
+						{events.length > 0 ? (
+							<Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle'>
+								<EnhancedTableHead
+									order={order}
+									orderBy={orderBy}
+									onRequestSort={handleRequestSort}
+									rowCount={events.length}
+								/>
+
+								<TableBody>
+									{events
+										.slice()
+										.sort(getComparator(order, orderBy))
+										.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+										.map(event => {
+											const date = new Date(event.date);
+											const websiteName =
+												event.websiteName.length > 30
+													? `${event.websiteName.slice(0, 30)}...`
+													: event.websiteName;
+											const location =
+												event.location.length > 0 ? event.location : '-';
+											return (
+												<TableRow hover key={event.eventName}>
+													<TableCell>{event.eventName}</TableCell>
+													<TableCell>{date.toDateString()}</TableCell>
+													<TableCell>{location}</TableCell>
+													<TableCell>{websiteName}</TableCell>
+												</TableRow>
+											);
+										})}
+									{emptyRows > 0 && (
+										<TableRow
+											style={{
+												height: 53 * emptyRows,
+											}}
+										>
+											<TableCell colSpan={6} />
+										</TableRow>
+									)}
+								</TableBody>
+							</Table>
+						) : (
+							<Typography align='center' sx={{ m: 5 }}>
+								No events found! Please adjust the filters or try again later.
+							</Typography>
+						)}
 					</TableContainer>
 					<TablePagination
 						rowsPerPageOptions={[5, 10, 15, 20]}
