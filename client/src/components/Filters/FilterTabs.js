@@ -57,7 +57,7 @@ export default function FilterTabs() {
 				<Tab label='Website Name' {...a11yProps(2)} />
 			</Tabs>
 			<TabPanel value={value} index={0}>
-				<LocationType locationTypes={locationTypes} setLocationTypes={setLocationTypes} />
+				<LocationType />
 			</TabPanel>
 			<TabPanel value={value} index={1}>
 				Item Two
