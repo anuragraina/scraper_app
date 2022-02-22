@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
 import LocationType from './LocationType';
+import DateFilter from './DateFilter';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -37,7 +38,6 @@ function a11yProps(index) {
 
 export default function FilterTabs() {
 	const [value, setValue] = useState(0);
-	const [locationTypes, setLocationTypes] = useState([]);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -60,7 +60,7 @@ export default function FilterTabs() {
 				<LocationType />
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				Item Two
+				<DateFilter />
 			</TabPanel>
 			<TabPanel value={value} index={2}>
 				Item Three

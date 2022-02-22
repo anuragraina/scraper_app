@@ -10,5 +10,15 @@ export const getFiltersConfig = () => {
 				return '';
 			},
 		},
+		Date: {
+			value: [null, null],
+			tempValue: [null, null],
+			getSearchString: dates => {
+				if (dates.length > 0) {
+					return '&date='.concat(dates.join(','));
+				}
+				return '';
+			},
+		},
 	};
 };
