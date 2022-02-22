@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 
 import LocationType from './LocationType';
 import DateFilter from './DateFilter';
+import WebsiteNameFilter from './WebsiteNameFilter';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -63,7 +64,7 @@ export default function FilterTabs() {
 				<DateFilter />
 			</TabPanel>
 			<TabPanel value={value} index={2}>
-				Item Three
+				<WebsiteNameFilter />
 			</TabPanel>
 		</Box>
 	);

@@ -29,5 +29,15 @@ export const getFiltersConfig = () => {
 				return '&date='.concat(newDates.join(','));
 			},
 		},
+		'Website Name': {
+			value: [],
+			tempValue: [],
+			getSearchString: websiteNames => {
+				if (websiteNames.length > 0) {
+					return '&websiteName='.concat(encodeURIComponent(websiteNames.join(';')));
+				}
+				return '';
+			},
+		},
 	};
 };
