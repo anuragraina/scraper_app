@@ -9,9 +9,7 @@ import FilterTabs from './FilterTabs';
 import { FilterContext } from '../EventsTable';
 
 export default function FilterDialog({ open, setOpen }) {
-	const { filters, setFilters } = useContext(FilterContext);
-
-	console.log(filters);
+	const { filters, setFilters, setFilterString } = useContext(FilterContext);
 
 	const handleClose = () => {
 		setFilters(prevFilters => {
@@ -29,7 +27,32 @@ export default function FilterDialog({ open, setOpen }) {
 		setOpen(false);
 	};
 
-	const onApply = () => {};
+	const onApply = () => {
+		setFilters(prevFilters => {
+			const newFilters = {};
+
+			for (let filter in prevFilters) {
+				newFilters[filter] = {
+					...prevFilters[filter],
+					value: prevFilters[filter].tempValue,
+				};
+			}
+
+			return newFilters;
+		});
+
+		let newFilterString = '';
+
+		for (let filter in filters) {
+			newFilterString = newFilterString.concat(
+				filters[filter].getSearchString(filters[filter].tempValue)
+			);
+		}
+
+		setFilterString(newFilterString);
+
+		setOpen(false);
+	};
 
 	return (
 		<div>
@@ -45,9 +68,7 @@ export default function FilterDialog({ open, setOpen }) {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose}>Cancel</Button>
-					<Button onClick={handleClose} autoFocus>
-						Apply
-					</Button>
+					<Button onClick={onApply}>Apply</Button>
 				</DialogActions>
 			</Dialog>
 		</div>

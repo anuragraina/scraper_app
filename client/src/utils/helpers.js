@@ -3,7 +3,12 @@ export const getFiltersConfig = () => {
 		'Location Type': {
 			value: [],
 			tempValue: [],
-			searchstring: '',
+			getSearchString: locationTypes => {
+				if (locationTypes.length > 0) {
+					return '&locationType='.concat(locationTypes.join(','));
+				}
+				return '';
+			},
 		},
 	};
 };

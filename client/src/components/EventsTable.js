@@ -37,6 +37,7 @@ export default function EventsTable() {
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [events, setEvents] = useState([]);
 	const [filters, setFilters] = useState(getFiltersConfig());
+	const [filterString, setFilterString] = useState('');
 
 	useEffect(() => {
 		let mounted = true;
@@ -70,7 +71,7 @@ export default function EventsTable() {
 	const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - events.length) : 0;
 
 	return (
-		<FilterContext.Provider value={{ filters, setFilters }}>
+		<FilterContext.Provider value={{ filters, setFilters, setFilterString }}>
 			<Box sx={{ width: '80%', mt: 5 }}>
 				<Paper sx={{ width: '100%', mb: 2 }}>
 					<EnhancedTableToolbar />
