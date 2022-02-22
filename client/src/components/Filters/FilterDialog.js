@@ -55,22 +55,20 @@ export default function FilterDialog({ open, setOpen }) {
 	};
 
 	return (
-		<div>
-			<Dialog
-				open={open}
-				onClose={handleClose}
-				aria-labelledby='filter-dialog-title'
-				aria-describedby='filter-dialog-description'
-			>
-				<DialogTitle id='filter-dialog-title'>Filter List</DialogTitle>
-				<DialogContent>
-					<FilterTabs />
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleClose}>Cancel</Button>
-					<Button onClick={onApply}>Apply</Button>
-				</DialogActions>
-			</Dialog>
-		</div>
+		<Dialog
+			open={open}
+			onClose={handleClose}
+			aria-labelledby='filter-dialog-title'
+			aria-describedby='filter-dialog-description'
+		>
+			<DialogTitle id='filter-dialog-title'>Filter List</DialogTitle>
+			<DialogContent>
+				<FilterTabs />
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={handleClose}>Cancel</Button>
+				<Button onClick={onApply}>Apply</Button>
+			</DialogActions>
+		</Dialog>
 	);
 }

@@ -11,7 +11,6 @@ export default function DateFilter() {
 	const { filters, setFilters } = useContext(FilterContext);
 
 	const handleChange = (newValue, num) => {
-		console.log(newValue, num);
 		setFilters(prevFilters => {
 			const newDate = [...prevFilters['Date'].tempValue];
 
