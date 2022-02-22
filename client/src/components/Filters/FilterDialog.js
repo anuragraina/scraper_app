@@ -9,7 +9,7 @@ import FilterTabs from './FilterTabs';
 import { FilterContext } from '../EventsTable';
 
 export default function FilterDialog({ open, setOpen }) {
-	const { filters, setFilters, setFilterString } = useContext(FilterContext);
+	const { filters, setFilters, setFilterString, setPage } = useContext(FilterContext);
 
 	const handleClose = () => {
 		setFilters(prevFilters => {
@@ -28,6 +28,7 @@ export default function FilterDialog({ open, setOpen }) {
 	};
 
 	const onApply = () => {
+		setPage(0);
 		setFilters(prevFilters => {
 			const newFilters = {};
 

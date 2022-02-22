@@ -91,7 +91,7 @@ export default function EventsTable() {
 	const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - events.length) : 0;
 
 	return (
-		<FilterContext.Provider value={{ filters, setFilters, setFilterString }}>
+		<FilterContext.Provider value={{ filters, setFilters, setFilterString, setPage }}>
 			<Box sx={{ width: '80%', mt: 5 }}>
 				<Paper sx={{ width: '100%', mb: 2 }}>
 					<EnhancedTableToolbar />
