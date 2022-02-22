@@ -9,11 +9,23 @@ import FilterTabs from './FilterTabs';
 import { FilterContext } from '../EventsTable';
 
 export default function FilterDialog({ open, setOpen }) {
-	const { filters } = useContext(FilterContext);
+	const { filters, setFilters } = useContext(FilterContext);
 
 	console.log(filters);
 
 	const handleClose = () => {
+		setFilters(prevFilters => {
+			const newFilters = {};
+
+			for (let filter in prevFilters) {
+				newFilters[filter] = {
+					...prevFilters[filter],
+					tempValue: prevFilters[filter].value,
+				};
+			}
+
+			return newFilters;
+		});
 		setOpen(false);
 	};
 

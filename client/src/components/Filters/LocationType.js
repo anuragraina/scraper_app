@@ -13,7 +13,7 @@ export default function LocationType() {
 
 	const handleToggle = value => () => {
 		setFilters(prevFilters => {
-			const locationTypes = prevFilters['Location Type'].value;
+			const locationTypes = prevFilters['Location Type'].tempValue;
 
 			const currentIndex = locationTypes.indexOf(value);
 			const newType = [...locationTypes];
@@ -28,7 +28,7 @@ export default function LocationType() {
 				...prevFilters,
 				'Location Type': {
 					...prevFilters['Location Type'],
-					value: newType,
+					tempValue: newType,
 				},
 			};
 		});
@@ -45,7 +45,9 @@ export default function LocationType() {
 							<ListItemIcon>
 								<Checkbox
 									edge='start'
-									checked={filters['Location Type'].value.indexOf(value) !== -1}
+									checked={
+										filters['Location Type'].tempValue.indexOf(value) !== -1
+									}
 									tabIndex={-1}
 									disableRipple
 									inputProps={{ 'aria-labelledby': labelId }}
