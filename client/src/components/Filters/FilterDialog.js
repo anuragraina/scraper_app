@@ -7,6 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import FilterTabs from './FilterTabs';
 import { FilterContext } from '../EventsTable';
+import { getFiltersConfig } from '../../utils/helpers';
 
 export default function FilterDialog({ open, setOpen }) {
 	const { filters, setFilters, setFilterString, setPage } = useContext(FilterContext);
@@ -55,6 +56,15 @@ export default function FilterDialog({ open, setOpen }) {
 		setOpen(false);
 	};
 
+	const clearFilters = () => {
+		setPage(0);
+
+		setFilters(getFiltersConfig());
+		setFilterString('');
+
+		setOpen(false);
+	};
+
 	return (
 		<Dialog
 			open={open}
@@ -67,6 +77,7 @@ export default function FilterDialog({ open, setOpen }) {
 				<FilterTabs />
 			</DialogContent>
 			<DialogActions>
+				<Button onClick={clearFilters}>Clear All Filters</Button>
 				<Button onClick={handleClose}>Cancel</Button>
 				<Button onClick={onApply}>Apply</Button>
 			</DialogActions>
