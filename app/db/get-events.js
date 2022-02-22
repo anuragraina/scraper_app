@@ -1,8 +1,9 @@
 import Event from '../models/event.js';
+import { queryDb } from '../utils/helpers.js';
 
-export const getEvents = async () => {
+export const getEvents = async queryParams => {
 	try {
-		const events = await Event.find({});
+		const events = await queryDb(queryParams);
 
 		return events.map(event => ({
 			websiteName: event.websiteName,

@@ -9,7 +9,7 @@ const port = process.env.PORT || 8080;
 connectDB();
 
 app.get('/api/events', async (req, res) => {
-	const events = await getEvents();
+	const events = await getEvents(req.query);
 	res.json(events);
 });
 
