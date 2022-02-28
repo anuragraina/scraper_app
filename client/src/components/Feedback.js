@@ -2,7 +2,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-function Feedback({ loading, error, eventLength }) {
+function Feedback({ loading, error, eventsLength }) {
 	if (loading) {
 		return (
 			<Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', padding: 5 }}>
@@ -19,7 +19,7 @@ function Feedback({ loading, error, eventLength }) {
 		);
 	}
 
-	if (eventLength > 0) {
+	if (eventsLength === 0) {
 		return (
 			<Typography align='center' padding={5}>
 				No events found! Please adjust the filters or try again later.
