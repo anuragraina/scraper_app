@@ -1,4 +1,4 @@
-export const scrapeConfig = [
+export const scrapeConfigs = [
 	{
 		url: 'https://www.computerworld.com/article/3313417/tech-event-calendar-shows-conferences-and-it-expos-updated.html',
 		eventsContainerSelectors: 'tr.odd, tr.even',
