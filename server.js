@@ -19,7 +19,10 @@ app.post('/api/events', async (_, res) => {
 	try {
 		await Promise.allSettled(scrapeConfigs.map(scrapeConfig => addEvents(scrapeConfig)));
 
-		res.json(scrapeConfigs.map(scrapeConfig => scrapeConfig.url));
+		res.json({
+			message: 'List of urls found to be scraped. Events on the pages will be added to db.',
+			urls: scrapeConfigs.map(scrapeConfig => scrapeConfig.url),
+		});
 	} catch (e) {
 		console.error(e);
 		res.json({ error: e.message });
