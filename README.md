@@ -3,7 +3,7 @@
 
 A full-stack MERN application to fetch tech events, store in DB, and display on UI having filtering and sorting accordingly
 
-## Steps to run the app in debug mode
+## Steps to run the app in dev environment
 
 - Ensure node.js and MongoDB is installed on your system
 - Next, install the depenedencies for both server and client
